@@ -1,7 +1,7 @@
 {
   "name": "nested-form-validation",
   "description": "Nested form object validation for react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
