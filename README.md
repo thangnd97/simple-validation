@@ -52,8 +52,19 @@ yarn add simple-validation
 
 ```typescript
 import {validate} from 'simple-validation';
+import {useCallback, useState} from "react";
 
-const {onSubmit, result, resetValidate, setNestedValue, onBlurValidate} = useValidate<DEMO_STATE>({
+// create form type
+interface DataForm {
+    name: string;
+    person: {
+        age: number;
+        name: number;
+    }
+}
+
+const [formState, setFormState] = useState<Partial<DataForm>>({})
+const {onSubmit, result, resetValidate, setNestedValue, onBlurValidate} = useValidate<DataForm>({
     scrollToField: true,
     rules: {
         name: {required: true, minLength: 5},
@@ -64,9 +75,10 @@ const {onSubmit, result, resetValidate, setNestedValue, onBlurValidate} = useVal
     }
 });
 
-console.log(result); // Output: { name: false } (empty object if valid)
+const onChange = useCallback((name: keyof DataForm, value: unknown) => {
+    setFormState((prev) => setNestedValue(prev, name, value));
+}, [])
 ```
-
 ## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
