@@ -92,7 +92,7 @@ const setNestedValue = <T>(obj: T, path: string, value: unknown) => {
     return obj;
 };
 
-export function useValidate<T>(options: ValidationOptions<T>): ValidateResult<T> {
+export function useValidate<T>(options: ValidationOptions<Required<T>>): ValidateResult<Required<T>> {
     const [result, setResult] = useState<ResultNested<T>>({});
     const flatRules = useMemo(() => flattenRules(options.rules), [options.rules]);
     const resetValidate = useCallback((name?: keyof T) => {
