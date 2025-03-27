@@ -39,8 +39,16 @@ const validator: ValidatorMap = {
     max: (value: number, expect: number) => (value || 0) <= expect,
     number: (value: unknown) => !Number.isNaN(Number(value)),
     email: (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-    url: (value: string) => /^https?:\/\/.+/.test(value),
-    required: (value?: string) => typeof value === "string" && value?.trim().length > 0,
+    url: (value: string) => new RegExp(/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).test(value),
+    urlWithProtocol: (value: string) => new RegExp('^(https?://)[a-zA-Z0-9.-]+(\\.[a-zA-Z]{2,})?(:\\d+)?(/.*)?$').test(value),
+    color: (value: string) => {
+        const color = value.startsWith('#') ? value : `#${value}`;
+        return new RegExp(/^#?([A-Fa-f0-9]{3,4}|[A-Fa-f0-9]{6,8})$/).test(color);
+    },
+    required: (value?: string | null) => {
+        if (value === null || value === undefined) return false;
+        return new RegExp(/^\s*\S.*$/).test(value);
+    },
     regex: (value: any, regex: RegExp | string) => !!value && new RegExp(regex).test(value),
 };
 
