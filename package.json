@@ -4,7 +4,8 @@
   "version": "0.0.5",
   "type": "module",
   "main": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "exports": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "author": "Thangnd <thangnd.fastx@gmail.com>",
   "license": "MIT",
   "keywords": [
@@ -26,6 +27,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "prepare": "vite build",
+    "prepublishOnly": "tsc -b",
     "preview": "vite preview",
     "publish": "npm publish"
   },
